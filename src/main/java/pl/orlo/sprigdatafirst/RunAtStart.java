@@ -30,9 +30,6 @@ public class RunAtStart {
 //            employeeRepository.save(employeeGenerator.generate());
 //        }
 
-        List<Employee> allUsorted = employeeRepository.findAll();
-        printAll(allUsorted);
-
 //        List<Employee> sortedByFirstName = employeeRepository.findAll(new Sort(Sort.Direction.ASC, "firstName"));
 
         logger.info("UNSORTED");
