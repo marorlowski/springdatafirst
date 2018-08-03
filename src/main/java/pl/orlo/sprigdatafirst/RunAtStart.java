@@ -1,34 +1,74 @@
 package pl.orlo.sprigdatafirst;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import pl.orlo.sprigdatafirst.entitys.Employee;
-import pl.orlo.sprigdatafirst.repositorys.EmployeeRepostory;
+import pl.orlo.sprigdatafirst.repositorys.EmployeeRepository;
 
 import javax.annotation.PostConstruct;
-import java.math.BigDecimal;
+import java.util.List;
 
 @Component
 public class RunAtStart {
-    private final EmployeeRepostory employeeRepostory;
+    private final EmployeeRepository employeeRepository;
+    private final EmployeeGenerator employeeGenerator;
+    private final Logger logger = LoggerFactory.getLogger(RunAtStart.class);
 
     @Autowired
-    public RunAtStart(EmployeeRepostory employeeRepostory) {
-        this.employeeRepostory = employeeRepostory;
+    public RunAtStart(EmployeeRepository employeeRepository, EmployeeGenerator employeeGenerator) {
+        this.employeeRepository = employeeRepository;
+        this.employeeGenerator = employeeGenerator;
     }
 
     @PostConstruct
-    public void runAtStart(){
-        Employee employee = new Employee();
-        employee.setFirstName("Jan");
-        employee.setLastName("Nowak");
-        employee.setSalary(new BigDecimal("3000.0"));
+    public void runAtStart() {
+//        generowanie pracowników
+//        for (int i = 0; i < 100; i++) {
+//            employeeRepository.save(employeeGenerator.generate());
+//        }
 
-        employeeRepostory.save(employee);
+        List<Employee> allUsorted = employeeRepository.findAll();
+        printAll(allUsorted);
 
-        Iterable<Employee> jans = employeeRepostory.findByFirstName("Jan");
-        Employee jan = jans.iterator().next();
-        System.out.println("Janek: "+ jan);
+//        List<Employee> sortedByFirstName = employeeRepository.findAll(new Sort(Sort.Direction.ASC, "firstName"));
 
+        logger.info("UNSORTED");
+        printAll(findAllUnsorted());
+
+        logger.info("SORTED BY FIRST NAME");
+        printAll(getSortedByFirstName());
+
+        logger.info("SORTED BY FIRST NAME AND LAST NAME");
+        printAll(getSortedByFirstNameAndLastName());
+    }
+
+    private List<Employee> getSortedByFirstNameAndLastName() {
+        return employeeRepository.findAll(
+                new Sort(
+                        new Sort.Order(
+                                Sort.Direction.ASC, "firstName"
+                        ),
+                        new Sort.Order(
+                                Sort.Direction.ASC, "lastName"
+                        )));
+    }
+
+    private List<Employee> getSortedByFirstName() {
+        return employeeRepository.findAll(
+                new Sort(
+                        Sort.Direction.ASC, "firstName"
+                )
+        );
+    }
+
+    private List<Employee> findAllUnsorted() {
+        return employeeRepository.findAll();
+    }
+
+    private void printAll(List<Employee> allUsorted) {
+        allUsorted.forEach((employee) -> logger.info(String.valueOf(employee)));
     }
 }
