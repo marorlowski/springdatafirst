@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 public class Employee {
@@ -14,6 +15,15 @@ public class Employee {
     private String firstName;
     private String lastName;
     private BigDecimal salary;
+    private LocalDate employmentDate;
+
+    public LocalDate getEmploymentDate(LocalDate of) {
+        return employmentDate;
+    }
+
+    public void setEmploymentDate(LocalDate employmentDate) {
+        this.employmentDate = employmentDate;
+    }
 
     @Override
     public String toString() {
@@ -22,6 +32,7 @@ public class Employee {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", salary=" + salary +
+                ", employmentDate=" + employmentDate +
                 '}';
     }
 
