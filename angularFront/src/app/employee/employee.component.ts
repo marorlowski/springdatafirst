@@ -3,6 +3,7 @@ import {Employee} from "../dto/dto";
 import {EmployeeService} from "../employee.service";
 import {error} from "util";
 
+
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -13,14 +14,18 @@ export class EmployeeComponent implements OnInit {
   employees : Employee[];
   selectedEmployee: Employee;
   errorMessage: String;
-
+  cols: any[];
 
   constructor(private emplServ: EmployeeService) { }
 
   ngOnInit() {
     this.getEmployee();
-    console.log('getEmployee: '+this.employees);
 
+    this.cols = [
+      { field: 'id', header: 'Nr ID' },
+      { field: 'firstName', header: 'Imię' },
+      { field: 'lastName', header: 'Nazwisko' }
+    ];
   }
 
   getEmployee(){
