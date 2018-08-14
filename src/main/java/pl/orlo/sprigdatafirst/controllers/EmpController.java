@@ -7,6 +7,7 @@ import pl.orlo.sprigdatafirst.repositorys.EmployeeRepository;
 import org.springframework.http.MediaType;
 
 import java.awt.*;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class EmpController {
     EmployeeRepository employeeRepository;
 
     @RequestMapping("/greeting")
-    public String index(){
+    public String index() {
         return "Spring boot działa";
     }
 
@@ -40,13 +41,18 @@ public class EmpController {
 //    }
 
     @GetMapping(value = "/empl", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Employee> getAll(){
+    public List<Employee> getAll() {
         List<Employee> list = new ArrayList<>();
         List<Employee> employees = employeeRepository.findAll();
         employees.forEach(list::add);
         return list;
     }
 
+    @GetMapping("/testClic/{zmienna}")
+    public String getClick(@PathVariable String zmienna) {
+        System.out.println(zmienna);
+        return "Działa";
+    }
 
 
 

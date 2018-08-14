@@ -5,11 +5,13 @@ import {Observable, Subject, throwError} from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {HttpErrorResponse} from "@angular/common/http";
+
 @Injectable()
 export class EmployeeService {
 
   private employeeUrl = 'api/';
   private headers = new Headers({'Content-Type': 'application/json'});
+
   // private handleError:;
 
   constructor(private http: Http) {
@@ -17,13 +19,17 @@ export class EmployeeService {
 
   public getEmployees(): Observable<Employee[]> {
     return this.http.get('api/empl')
-      .map(resp=>resp.json())
+      .map(resp => resp.json())
       .catch(this.handleError);
   }
 
-  private handleErrorObservable(error: Response | any) {
-    console.error(error.message || error);
-    return Observable.throw(error.message || error);
+  public sendClick(zmienna: string) {
+    return this.http.get(`api/testClic/${zmienna}`).subscribe();
+  }
+
+  extractData(res: Response) {
+    let body = res.json();
+    return body || {};
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -41,4 +47,5 @@ export class EmployeeService {
     return throwError(
       'Something bad happened; please try again later.');
   };
+
 }

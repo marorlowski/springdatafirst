@@ -1,5 +1,6 @@
 package pl.orlo.sprigdatafirst.repositorys;
 
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import pl.orlo.sprigdatafirst.entitys.Employee;
