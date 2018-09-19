@@ -1,0 +1,15 @@
+Kurs springboot data
+    https://www.youtube.com/watch?v=9ZS9UhVfMiA&list=PLU2dl_1LV_SR9VnEtO4s0uUI_WSmzDq1I&index=5
+
+Lombok:
+    https://projectlombok.org/mavenrepo/
+
+Dane do projektu:
+    Baza danych: test_orlo_db
+    Nazwa użytkownika: orlotest
+    Email: i.marko@wp.pl
+    host: db4free.net
+
+Windows cmd:
+    netstat -ano | findstr :8080   sprawdzenie jaka usługa jest n aporcie - uzyskuje się pid
+    taskkill /pid 16100 /F  zabicie procesu po pid
