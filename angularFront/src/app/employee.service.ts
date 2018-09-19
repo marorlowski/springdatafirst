@@ -4,7 +4,7 @@ import {Employee} from "./dto/dto";
 import {Observable, Subject, throwError} from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {HttpErrorResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 
 @Injectable()
 export class EmployeeService {
@@ -14,7 +14,8 @@ export class EmployeeService {
 
   // private handleError:;
 
-  constructor(private http: Http) {
+  constructor(private http: Http,
+  private httpClient: HttpClient) {
   }
 
   public getEmployees(): Observable<Employee[]> {
@@ -23,9 +24,15 @@ export class EmployeeService {
       .catch(this.handleError);
   }
 
+
   public sendClick(zmienna: string) {
     return this.http.get(`api/testClic/${zmienna}`).subscribe();
   }
+
+  public  getByName(firstName: string){
+    return this.httpClient.post<Employee[]>('api/testPostFilter',firstName);
+  }
+
 
   extractData(res: Response) {
     let body = res.json();

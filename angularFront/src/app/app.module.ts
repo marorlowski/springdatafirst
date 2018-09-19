@@ -11,6 +11,7 @@ import {MenuItem} from 'primeng/api';                 //api
 import {FormsModule} from "@angular/forms";
 import {TableModule} from "primeng/table";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     FormsModule,
     TableModule,
     AccordionModule,
+    HttpClientModule
   ],
   providers: [EmployeeService],
   bootstrap: [AppComponent]

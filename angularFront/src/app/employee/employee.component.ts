@@ -12,6 +12,7 @@ import {error} from "util";
 export class EmployeeComponent implements OnInit {
 
   employees: Employee[];
+  filterEmployees: Employee[]=[];
   selectedEmployee: Employee;
   errorMessage: String;
   cols: any[];
@@ -40,6 +41,13 @@ export class EmployeeComponent implements OnInit {
   buttonClick(eve) {
     console.log("działa przycisk");
     this.emplServ.sendClick("działa przycisk z Angulara");
+//TODO
+    // console.log(this.emplServ.getByName('Aaron'));
+    this.emplServ.getByName('Aaron').subscribe(
+      emplF => {});
+
+    // this.filterEmployees.forEach(value => value);
+
 
 
   }
