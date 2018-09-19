@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Employee} from "../dto/dto";
 import {EmployeeService} from "../employee.service";
-import {error} from "util";
 
 
 @Component({
@@ -26,7 +25,8 @@ export class EmployeeComponent implements OnInit {
     this.cols = [
       {field: 'id', header: 'Nr ID'},
       {field: 'firstName', header: 'Imię'},
-      {field: 'lastName', header: 'Nazwisko'}
+      {field: 'lastName', header: 'Nazwisko'},
+      {field: 'employmentDate', header: 'Data zatrudnienia'}
     ];
   }
 
@@ -42,13 +42,13 @@ export class EmployeeComponent implements OnInit {
     console.log("działa przycisk");
     this.emplServ.sendClick("działa przycisk z Angulara");
 //TODO
-    // console.log(this.emplServ.getByName('Aaron'));
-    this.emplServ.getByName('Aaron').subscribe(
-      emplF => {});
 
-    // this.filterEmployees.forEach(value => value);
+    this.emplServ.getByName('Aaron').subscribe(value => this.filterEmployees = value);
 
+    // this.filterEmployees.forEach(value => console.log(value.employmentDate));
 
+    this.emplServ.getByName('Aaron').subscribe(value => this.employees = value);
+    this.employees.forEach(value => console.log(value.employmentDate));
 
   }
 }

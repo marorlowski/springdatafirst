@@ -62,7 +62,7 @@ public class EmpController {
     }
 
     //TODO
-    @PostMapping("/testPostFilter")
+    @PostMapping(value = "/testPostFilter", consumes = "application/json", produces = "application/json")
     public List<Employee> getFirstName(
             @RequestBody String firstname) {
         List<Employee> list = new ArrayList<>();
